@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Agent run log record",
+  "description": "One agent run. A run log is a JSONL file with one record per line.",
+  "type": "object",
+  "required": ["run_id", "task", "started_at", "tool_calls", "tokens", "outcome"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "const": "1" },
+    "run_id": { "type": "string", "minLength": 1, "description": "Unique within the log." },
+    "task": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The kind of case, for example parse_order_email. Runs of the same task are compared with each other."
+    },
+    "started_at": { "type": "string", "format": "date-time" },
+    "run_type": {
+      "type": ["integer", "null"],
+      "enum": [1, 2, 3, null],
+      "description": "Optional. What the producer says the run was. The classifier computes its own value from tokens and playbook_id."
+    },
+    "playbook_id": { "type": ["string", "null"], "description": "Set when a playbook executed the steps." },
+    "playbook_version": { "type": ["string", "null"] },
+    "tool_calls": { "type": "array", "items": { "$ref": "#/$defs/toolCall" } },
+    "tokens": { "$ref": "#/$defs/tokens" },
+    "outcome": { "$ref": "#/$defs/outcome" },
+    "signature": {
+      "type": ["object", "null"],
+      "required": ["signed_by", "signed_at", "playbook_version"],
+      "properties": {
+        "signed_by": { "type": "string", "minLength": 1, "description": "A named person. Not an agent or a service account." },
+        "role": { "type": "string" },
+        "signed_at": { "type": "string", "format": "date-time" },
+        "playbook_version": { "type": "string", "minLength": 1 },
+        "statement": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "metadata": { "type": "object", "description": "Free-form producer data. The classifier ignores it." }
+  },
+  "$defs": {
+    "toolCall": {
+      "type": "object",
+      "required": ["name", "input", "output"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "input": { "description": "Any JSON value." },
+        "output": { "description": "Any JSON value." },
+        "error": { "type": ["string", "null"] },
+        "duration_ms": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "tokens": {
+      "type": "object",
+      "required": ["input", "output"],
+      "additionalProperties": false,
+      "properties": {
+        "input": { "type": "integer", "minimum": 0 },
+        "output": { "type": "integer", "minimum": 0 },
+        "model_calls": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "outcome": {
+      "type": "object",
+      "required": ["status"],
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": ["clean", "corrected", "failed"],
+          "description": "clean: finished and nobody had to fix it. corrected: a person changed the result. failed: no usable result."
+        },
+        "tests_passed": { "type": ["boolean", "null"] },
+        "notes": { "type": "string" }
+      }
+    }
+  }
+}

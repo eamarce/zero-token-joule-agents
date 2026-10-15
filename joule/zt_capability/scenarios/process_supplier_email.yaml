@@ -1,0 +1,17 @@
+description: >
+  Use when the user wants to process supplier emails or purchase-order emails
+  from the purchasing mailbox, process one email by its id, or asks how many
+  runs still need a model (the Type 1 : 2 : 3 run ratio).
+  Examples: "Process the next supplier email", "Process email msg-1007",
+  "What is the run ratio of the order email agent?".
+
+target:
+  type: function
+  name: call_agent
+  parameters:
+    - name: contextId
+      value: $capability_context.contextId
+
+capability_context:
+  - name: contextId
+    value: $target_result.contextId

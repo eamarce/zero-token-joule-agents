@@ -1,0 +1,16 @@
+{
+  "demo": {
+    "description": "Small numbers so one pass through the sample mailbox shows the whole cycle. Not a recommendation.",
+    "propose_after": 3,
+    "gate2_streak": 5,
+    "recheck_every": 4,
+    "max_disagreements": 2
+  },
+  "talk": {
+    "description": "The defaults from the CT1106 talk and from Malik's Progressive Crystallization paper (10 runs, then 50 more and a signature). Re-derive your own.",
+    "propose_after": 10,
+    "gate2_streak": 50,
+    "recheck_every": 10,
+    "max_disagreements": 2
+  }
+}

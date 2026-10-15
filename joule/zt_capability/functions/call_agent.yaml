@@ -1,0 +1,31 @@
+parameters:
+  - name: contextId
+    optional: true
+
+action_groups:
+  - actions:
+      - type: status-update
+        message: "Asking the supplier email agent..."
+
+      # Joule forwards the user's message to the agent over A2A (message/send).
+      # The agent answers synchronously, well inside Joule's time limit.
+      - type: agent-request
+        agent_type: remote
+        system_alias: ZeroTokenA2A
+        body: >
+          <? (contextId == null || contextId.isEmpty()) ? null : '{ "contextId": "' + contextId + '" }' ?>
+        result_variable: result
+
+      - type: set-variables
+        variables:
+          - name: contextId
+            value: <? result.body.contextId ?>
+
+      - type: message
+        message:
+          type: text
+          content: "<? result.body.status.message.parts[0].text ?>"
+          markdown: true
+
+result:
+  contextId: "<? contextId ?>"

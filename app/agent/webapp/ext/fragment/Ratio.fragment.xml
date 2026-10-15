@@ -1,0 +1,91 @@
+<core:FragmentDefinition
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core"
+>
+  <!-- KPI area of the worklist: the Type 1 : 2 : 3 ratio and the token totals. Model "ratio" is filled
+       from AgentService.ratio() by ext/controller/ListReportExt.controller.js. -->
+  <FlexBox
+    id="ratioArea"
+    wrap="Wrap"
+    alignItems="Stretch"
+    renderType="Bare"
+  >
+    <VBox
+      class="sapUiMediumMarginEnd sapUiTinyMarginBottom"
+      width="22rem"
+    >
+      <Title
+        text="{i18n>ratioTitle}"
+        titleStyle="H5"
+      />
+      <Title
+        text="{ratio>/ratio}"
+        titleStyle="H1"
+      />
+      <Text text="{ratio>/subtitle}" />
+    </VBox>
+    <VBox
+      class="sapUiMediumMarginEnd sapUiTinyMarginBottom"
+      width="22rem"
+      items="{ratio>/types}"
+    >
+      <VBox class="sapUiTinyMarginBottom">
+        <Label text="{ratio>label}" />
+        <ProgressIndicator
+          percentValue="{ratio>percent}"
+          displayValue="{ratio>display}"
+          state="{ratio>state}"
+          showValue="true"
+          width="100%"
+        />
+      </VBox>
+    </VBox>
+    <HBox wrap="Wrap" renderType="Bare" class="sapUiTinyMarginBottom">
+      <GenericTile
+        class="sapUiTinyMarginEnd sapUiTinyMarginBottom"
+        header="{i18n>tokensInRuns}"
+        tooltip="{i18n>tokensInRunsFooter}"
+        frameType="OneByHalf"
+      >
+        <TileContent>
+          <NumericContent
+            value="{ratio>/allTokensText}"
+            truncateValueTo="8"
+            withMargin="false"
+            valueColor="Neutral"
+          />
+        </TileContent>
+      </GenericTile>
+      <GenericTile
+        class="sapUiTinyMarginEnd sapUiTinyMarginBottom"
+        header="{i18n>tokensProposals}"
+        tooltip="{i18n>tokensProposalsFooter}"
+        frameType="OneByHalf"
+      >
+        <TileContent>
+          <NumericContent
+            value="{ratio>/proposalTokensText}"
+            truncateValueTo="8"
+            withMargin="false"
+            valueColor="Neutral"
+          />
+        </TileContent>
+      </GenericTile>
+      <GenericTile
+        class="sapUiTinyMarginBottom"
+        header="{i18n>wrongServed}"
+        tooltip="{i18n>wrongServedFooter}"
+        frameType="OneByHalf"
+      >
+        <TileContent>
+          <NumericContent
+            value="{ratio>/wrongServed}"
+            truncateValueTo="8"
+            withMargin="false"
+            valueColor="{ratio>/wrongColor}"
+          />
+        </TileContent>
+      </GenericTile>
+    </HBox>
+  </FlexBox>
+</core:FragmentDefinition>

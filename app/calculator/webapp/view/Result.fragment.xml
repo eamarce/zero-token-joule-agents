@@ -1,0 +1,160 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:form="sap.ui.layout.form"
+	core:require="{ Integer: 'sap/ui/model/type/Integer', formatter: 'zt/calculator/model/formatter' }"
+>
+	<VBox id="result" visible="{ui>/hasResult}">
+		<MessageStrip
+			id="problems"
+			text="{ui>/result/problemsText}"
+			type="Warning"
+			showIcon="true"
+			visible="{ui>/result/hasProblems}"
+			class="sapUiMediumMarginBottom"
+		/>
+
+		<Panel headerText="{i18n>typesSectionTitle}" class="sapUiMediumMarginBottom" width="auto">
+			<Table id="typesTable" items="{ui>/result/rows}" popinLayout="GridSmall">
+				<columns>
+					<Column>
+						<Text text="{i18n>typeColumn}" />
+					</Column>
+					<Column hAlign="End" minScreenWidth="Tablet" demandPopin="true">
+						<Text text="{i18n>runsColumn}" />
+					</Column>
+					<Column width="14rem" minScreenWidth="Tablet" demandPopin="true">
+						<Text text="{i18n>runShareColumn}" />
+					</Column>
+					<Column hAlign="End">
+						<Text text="{i18n>tokensColumn}" />
+					</Column>
+					<Column width="14rem" minScreenWidth="Tablet" demandPopin="true">
+						<Text text="{i18n>tokenShareColumn}" />
+					</Column>
+					<Column hAlign="End" minScreenWidth="Desktop" demandPopin="true">
+						<Text text="{i18n>meanTokensColumn}" />
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<ObjectStatus text="{ui>typeText}" state="{path: 'ui>type', formatter: 'formatter.typeState'}" />
+						<Text text="{ path: 'ui>runs', type: 'Integer', formatOptions: { groupingEnabled: true } }" />
+						<ProgressIndicator
+							percentValue="{path: 'ui>share', formatter: 'formatter.percent'}"
+							displayValue="{path: 'ui>share', formatter: 'formatter.percent'}%"
+							state="{path: 'ui>type', formatter: 'formatter.typeState'}"
+						/>
+						<Text text="{ path: 'ui>tokens', type: 'Integer', formatOptions: { groupingEnabled: true } }" />
+						<ProgressIndicator
+							percentValue="{path: 'ui>tokenShare', formatter: 'formatter.percent'}"
+							displayValue="{path: 'ui>tokenShare', formatter: 'formatter.percent'}%"
+							state="{path: 'ui>type', formatter: 'formatter.typeState'}"
+						/>
+						<Text text="{ path: 'ui>meanTokens', type: 'Integer', formatOptions: { groupingEnabled: true } }" />
+					</ColumnListItem>
+				</items>
+			</Table>
+		</Panel>
+
+		<Panel headerText="{i18n>candidatesSectionTitle}" class="sapUiMediumMarginBottom" width="auto">
+			<Table id="candidatesTable" items="{ui>/result/candidates}" noDataText="{i18n>noCandidates}" popinLayout="GridSmall">
+				<columns>
+					<Column width="7.5rem">
+						<Text text="{i18n>verdictColumn}" />
+					</Column>
+					<Column width="14rem">
+						<Text text="{i18n>pathColumn}" />
+					</Column>
+					<Column width="5rem" hAlign="End" minScreenWidth="Tablet" demandPopin="true">
+						<Text text="{i18n>repeatsColumn}" />
+					</Column>
+					<Column width="7rem" hAlign="End">
+						<Text text="{i18n>spentColumn}" />
+					</Column>
+					<Column width="7rem" hAlign="End" minScreenWidth="Tablet" demandPopin="true">
+						<Text text="{i18n>monthlyColumn}" />
+					</Column>
+					<Column width="6rem" hAlign="End" minScreenWidth="Tablet" demandPopin="true">
+						<Text text="{i18n>monthlyCostColumn}" />
+					</Column>
+					<Column width="5.75rem" minScreenWidth="XLarge" demandPopin="true">
+						<Text text="{i18n>repeatedColumn}" />
+					</Column>
+					<Column width="5.75rem" minScreenWidth="XLarge" demandPopin="true">
+						<Text text="{i18n>stableColumn}" />
+					</Column>
+					<Column width="5.75rem" minScreenWidth="XLarge" demandPopin="true">
+						<Text text="{i18n>valuableColumn}" />
+					</Column>
+					<Column width="5.75rem" minScreenWidth="XLarge" demandPopin="true">
+						<Text text="{i18n>operableColumn}" />
+					</Column>
+					<Column minScreenWidth="XXLarge" demandPopin="true">
+						<Text text="{i18n>reasonsColumn}" />
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<ObjectStatus text="{ui>verdictText}" state="{path: 'ui>verdict', formatter: 'formatter.verdictState'}" />
+						<ObjectIdentifier title="{ui>task}" text="{ui>path}" />
+						<Text text="{ path: 'ui>repeats', type: 'Integer', formatOptions: { groupingEnabled: true } }" />
+						<Text text="{ path: 'ui>score', type: 'Integer', formatOptions: { groupingEnabled: true } }" />
+						<Text text="{ui>monthlyTokensText}" />
+						<Text text="{ui>monthlyCostText}" />
+						<ObjectStatus
+							text="{= ${ui>repeated} ? ${i18n>yes} : ${i18n>no} }"
+							state="{= ${ui>repeated} ? 'Success' : 'Error' }"
+							icon="{= ${ui>repeated} ? 'sap-icon://accept' : 'sap-icon://decline' }"
+						/>
+						<ObjectStatus
+							text="{= ${ui>stable} ? ${i18n>yes} : ${i18n>no} }"
+							state="{= ${ui>stable} ? 'Success' : 'Error' }"
+							icon="{= ${ui>stable} ? 'sap-icon://accept' : 'sap-icon://decline' }"
+						/>
+						<ObjectStatus
+							text="{= ${ui>valuable} ? ${i18n>yes} : ${i18n>no} }"
+							state="{= ${ui>valuable} ? 'Success' : 'Error' }"
+							icon="{= ${ui>valuable} ? 'sap-icon://accept' : 'sap-icon://decline' }"
+						/>
+						<ObjectStatus
+							text="{= ${ui>operable} ? ${i18n>yes} : ${i18n>no} }"
+							state="{= ${ui>operable} ? 'Success' : 'Error' }"
+							icon="{= ${ui>operable} ? 'sap-icon://accept' : 'sap-icon://decline' }"
+						/>
+						<Text text="{ui>reasonsText}" />
+					</ColumnListItem>
+				</items>
+			</Table>
+		</Panel>
+
+		<Panel headerText="{i18n>detailsSectionTitle}" class="sapUiMediumMarginBottom" width="auto" expandable="true" expanded="false">
+			<form:Form id="detailsForm" editable="false">
+				<form:layout>
+					<form:ColumnLayout columnsM="2" columnsL="3" columnsXL="4" />
+				</form:layout>
+				<form:formContainers>
+					<form:FormContainer>
+						<form:formElements>
+							<form:FormElement label="{i18n>detailFormat}">
+								<Text text="{ui>/result/formatText}" />
+							</form:FormElement>
+							<form:FormElement label="{i18n>detailWindow}">
+								<Text text="{ui>/result/windowRangeText}" />
+							</form:FormElement>
+							<form:FormElement label="{i18n>detailMinRepeats}">
+								<Text text="{ui>/result/thresholds/minRepeats}" />
+							</form:FormElement>
+							<form:FormElement label="{i18n>detailMinPathShare}">
+								<Text text="{ui>/result/thresholds/minPathShareText}" />
+							</form:FormElement>
+							<form:FormElement label="{i18n>detailMinTokens}">
+								<Text text="{ path: 'ui>/result/thresholds/minTokens', type: 'Integer', formatOptions: { groupingEnabled: true } }" />
+							</form:FormElement>
+						</form:formElements>
+					</form:FormContainer>
+				</form:formContainers>
+			</form:Form>
+		</Panel>
+	</VBox>
+</core:FragmentDefinition>

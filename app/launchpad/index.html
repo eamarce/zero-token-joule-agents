@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html class="sapUShellFullHeight" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Zero-token agent</title>
+    <script src="flp-config.js"></script>
+    <script id="sap-ushell-bootstrap" src="https://ui5.sap.com/1.136.20/test-resources/sap/ushell/bootstrap/sandbox.js"></script>
+    <script src="theme.js"></script>
+    <script
+      id="sap-ui-bootstrap"
+      src="https://ui5.sap.com/1.136.20/resources/sap-ui-core.js"
+      data-sap-ui-compatVersion="edge"
+      data-sap-ui-libs="sap.m"
+      data-sap-ui-async="true"
+      data-sap-ui-oninit="module:sap/ushell/shells/sandbox/fioriSandboxInit"
+      data-sap-ui-resourceroots='{"sap.ushell.shells.sandbox": "https://ui5.sap.com/1.136.20/test-resources/sap/ushell/shells/sandbox/"}'
+    ></script>
+    <script src="strip.js"></script>
+    <style>
+      html, body { margin: 0; height: 100%; }
+      /* The shell header is fixed, so the strip floats at the bottom instead of taking layout space. */
+      #model-strip { position: fixed; left: 0; right: 0; bottom: 0; z-index: 1000; }
+      #model-strip[hidden] { display: none; }
+    </style>
+  </head>
+  <body class="sapUiBody sapUShellFullHeight">
+    <div id="canvas" class="sapUShellFullHeight"></div>
+    <div id="model-strip"></div>
+  </body>
+</html>

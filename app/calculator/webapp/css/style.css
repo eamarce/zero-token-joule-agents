@@ -1,0 +1,5 @@
+/* The component container must fill the window so the page footer stays at the bottom. */
+html,
+body {
+	height: 100%;
+}

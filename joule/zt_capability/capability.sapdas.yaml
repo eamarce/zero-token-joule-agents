@@ -1,0 +1,15 @@
+schema_version: 3.28.0 # agent-request needs 3.27.0 or later
+
+metadata:
+  namespace: joule.ext # extension capabilities live in joule.ext
+  name: zt_order_email_agent
+  version: 0.2.0
+  display_name: "Supplier email agent (zero-token)"
+  description: >
+    Processes supplier emails through a remote A2A agent: writes purchase
+    orders and drafts replies. Repeated cases run on playbooks a person signed,
+    with no model call. Can report its Type 1 : 2 : 3 run ratio.
+
+system_aliases:
+  ZeroTokenA2A:
+    destination: ZT_A2A # created by deploy/cf/create-joule-destination.sh

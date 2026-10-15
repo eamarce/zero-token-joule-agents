@@ -1,0 +1,17 @@
+_schema-version: "3.2"
+ID: zero-token-joule-agents.keys
+extends: zero-token-joule-agents
+
+# Copy to deploy/cf/zt.mtaext (git ignores it), fill in ONE provider, then:
+#   cf deploy mta_archives/zero-token-joule-agents_0.2.0.mtar -e deploy/cf/zt.mtaext
+# Pass the extension only to `cf deploy`, never to `mbt build`, or the key ends up in the .mtar.
+# Leave every key out to run the simulated model (no cost, estimated tokens).
+# Use a key with a spending limit, and rotate it after the demo.
+modules:
+  - name: zt-srv
+    properties:
+      ZT_MODEL_PROVIDER: anthropic      # or openai | google
+      ANTHROPIC_API_KEY: REPLACE-ME
+      # ZT_MODEL: claude-opus-5-5       # default for anthropic; gpt-5.4-mini for openai; gemini-3.8-flash for google
+      # OPENAI_API_KEY: REPLACE-ME
+      # GOOGLE_API_KEY: REPLACE-ME

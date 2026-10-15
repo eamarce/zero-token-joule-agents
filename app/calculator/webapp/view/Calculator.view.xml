@@ -1,0 +1,138 @@
+<mvc:View
+	controllerName="zt.calculator.controller.Calculator"
+	displayBlock="true"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+	xmlns:semantic="sap.f.semantic"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:unified="sap.ui.unified"
+	core:require="{ Integer: 'sap/ui/model/type/Integer' }"
+>
+	<App id="app">
+		<semantic:SemanticPage
+			id="page"
+			busy="{ui>/busy}"
+			busyIndicatorDelay="300"
+			toggleHeaderOnTitleClick="false"
+			showFooter="true"
+			headerPinnable="false"
+			class="sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer"
+		>
+			<semantic:titleHeading>
+				<Title text="{i18n>pageTitle}" />
+			</semantic:titleHeading>
+
+			<semantic:headerContent>
+				<Text text="{i18n>headerHint}" visible="{= !${ui>/hasResult} }" />
+				<FlexBox id="kpis" wrap="Wrap" visible="{ui>/hasResult}">
+					<VBox class="sapUiMediumMarginEnd sapUiTinyMarginBottom">
+						<Label text="{i18n>kpiRatio}" />
+						<ObjectNumber id="kpiRatio" number="{ui>/result/ratio}" emphasized="true" state="Information" />
+					</VBox>
+					<VBox class="sapUiMediumMarginEnd sapUiTinyMarginBottom">
+						<Label text="{i18n>kpiTokens}" />
+						<ObjectNumber
+							id="kpiTokens"
+							number="{ path: 'ui>/result/allTokens', type: 'Integer', formatOptions: { groupingEnabled: true } }"
+							unit="{i18n>tokensUnit}"
+							emphasized="false"
+						/>
+					</VBox>
+					<VBox class="sapUiMediumMarginEnd sapUiTinyMarginBottom">
+						<Label text="{i18n>kpiRuns}" />
+						<ObjectNumber id="kpiRuns" number="{ui>/result/validText}" emphasized="false" />
+					</VBox>
+					<VBox class="sapUiTinyMarginBottom">
+						<Label text="{i18n>kpiWindow}" />
+						<ObjectNumber id="kpiWindow" number="{ui>/result/windowDaysText}" emphasized="false" />
+					</VBox>
+				</FlexBox>
+			</semantic:headerContent>
+
+			<semantic:content>
+				<VBox id="content">
+					<MessageStrip text="{i18n>introText}" type="Information" showIcon="true" class="sapUiSmallMarginBottom" />
+
+					<Panel headerText="{i18n>logSectionTitle}" class="sapUiMediumMarginBottom" width="auto">
+						<OverflowToolbar style="Clear">
+							<unified:FileUploader
+								id="fileUploader"
+								name="runLog"
+								fileType="jsonl,json,txt,ndjson"
+								buttonText="{i18n>chooseFile}"
+								placeholder="{i18n>chooseFilePlaceholder}"
+								uploadOnChange="false"
+								width="18rem"
+								change=".onFileChange"
+							/>
+							<ToolbarSpacer />
+							<Button id="sampleRunLog" text="{i18n>sampleRunLog}" press=".onLoadSample">
+								<customData>
+									<core:CustomData key="format" value="runlog" />
+								</customData>
+							</Button>
+							<Button id="sampleOtel" text="{i18n>sampleOtel}" press=".onLoadSample">
+								<customData>
+									<core:CustomData key="format" value="otel" />
+								</customData>
+							</Button>
+							<Button id="agentRuns" text="{i18n>agentRuns}" press=".onLoadAgentRuns" />
+						</OverflowToolbar>
+						<TextArea
+							id="logContent"
+							value="{ui>/content}"
+							valueLiveUpdate="true"
+							rows="10"
+							width="100%"
+							placeholder="{i18n>logPlaceholder}"
+							class="sapUiSmallMarginTop"
+						/>
+					</Panel>
+
+					<Panel headerText="{i18n>optionsSectionTitle}" class="sapUiMediumMarginBottom" width="auto">
+						<form:Form id="optionsForm" editable="true">
+							<form:layout>
+								<form:ColumnLayout columnsM="2" columnsL="3" columnsXL="4" />
+							</form:layout>
+							<form:formContainers>
+								<form:FormContainer>
+									<form:formElements>
+										<form:FormElement label="{i18n>formatLabel}">
+											<Select id="format" selectedKey="{ui>/format}">
+												<core:Item key="auto" text="{i18n>formatAuto}" />
+												<core:Item key="runlog" text="{i18n>formatRunlog}" />
+												<core:Item key="otel" text="{i18n>formatOtel}" />
+											</Select>
+										</form:FormElement>
+										<form:FormElement label="{i18n>priceLabel}">
+											<Input id="price" type="Number" value="{ui>/price}" placeholder="{i18n>pricePlaceholder}" />
+										</form:FormElement>
+										<form:FormElement label="{i18n>minRepeatsLabel}">
+											<Input id="minRepeats" type="Number" value="{ui>/minRepeats}" placeholder="10" />
+										</form:FormElement>
+										<form:FormElement label="{i18n>minPathShareLabel}">
+											<Input id="minPathShare" type="Number" value="{ui>/minPathShare}" placeholder="0.8" />
+										</form:FormElement>
+										<form:FormElement label="{i18n>minTokensLabel}">
+											<Input id="minTokens" type="Number" value="{ui>/minTokens}" placeholder="100000" />
+										</form:FormElement>
+									</form:formElements>
+								</form:FormContainer>
+							</form:formContainers>
+						</form:Form>
+					</Panel>
+
+					<core:Fragment fragmentName="zt.calculator.view.Result" type="XML" />
+				</VBox>
+			</semantic:content>
+
+			<semantic:footerCustomActions>
+				<Button id="clear" text="{i18n>clear}" press=".onClear" />
+			</semantic:footerCustomActions>
+			<semantic:footerMainAction>
+				<semantic:FooterMainAction id="analyze" text="{i18n>analyze}" press=".onAnalyze" enabled="{= !!${ui>/content} &amp;&amp; !${ui>/busy} }" />
+			</semantic:footerMainAction>
+		</semantic:SemanticPage>
+	</App>
+</mvc:View>

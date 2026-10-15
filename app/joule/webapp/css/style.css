@@ -1,0 +1,5 @@
+/* No standard control shows monospaced read-only text, so the raw JSON text areas get a monospace font. */
+.ztMono textarea {
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: var(--sapFontSmallSize, 0.75rem);
+}

@@ -1,0 +1,376 @@
+{
+  "suppliers": [
+    {
+      "ID": "SUP-NW",
+      "name": "Northwind Parts",
+      "email_domain": "northwind-parts.example"
+    },
+    {
+      "ID": "SUP-CM",
+      "name": "Contoso Metalworks",
+      "email_domain": "contoso-metal.example"
+    }
+  ],
+  "emails": [
+    {
+      "ID": "msg-1001",
+      "seq": 1,
+      "sender": "orders@northwind-parts.example",
+      "subject": "New order PO-10432",
+      "body": "Hello,\n\nplease find our order below.\n\nOrder number: PO-10432\nOrder date: 2026-10-01\nTotal: 412.50 EUR\n\nKind regards,\nNorthwind Parts, order desk",
+      "received_at": "2026-10-01T07:00:00.000Z",
+      "expected_json": "{\"task\":\"parse_order_email\",\"supplier_id\":\"SUP-NW\",\"order_no\":\"PO-10432\",\"order_date\":\"2026-10-01\",\"total\":412.5,\"currency\":\"EUR\"}"
+    },
+    {
+      "ID": "msg-1002",
+      "seq": 2,
+      "sender": "orders@northwind-parts.example",
+      "subject": "New order PO-10433",
+      "body": "Hello,\n\nplease find our order below.\n\nOrder number: PO-10433\nOrder date: 2026-10-01\nTotal: 88.00 EUR\n\nKind regards,\nNorthwind Parts, order desk",
+      "received_at": "2026-10-01T10:00:00.000Z",
+      "expected_json": "{\"task\":\"parse_order_email\",\"supplier_id\":\"SUP-NW\",\"order_no\":\"PO-10433\",\"order_date\":\"2026-10-01\",\"total\":88,\"currency\":\"EUR\"}"
+    },
+    {
+      "ID": "msg-1003",
+      "seq": 3,
+      "sender": "orders@northwind-parts.example",
+      "subject": "New order PO-10434",
+      "body": "Hello,\n\nplease find our order below.\n\nOrder number: PO-10434\nOrder date: 2026-10-02\nTotal: 260.75 EUR\n\nKind regards,\nNorthwind Parts, order desk",
+      "received_at": "2026-10-01T13:00:00.000Z",
+      "expected_json": "{\"task\":\"parse_order_email\",\"supplier_id\":\"SUP-NW\",\"order_no\":\"PO-10434\",\"order_date\":\"2026-10-02\",\"total\":260.75,\"currency\":\"EUR\"}"
+    },
+    {
+      "ID": "msg-1004",
+      "seq": 4,
+      "sender": "buyer@fabrikam.example",
+      "subject": "Delivery before Friday?",
+      "body": "Hi,\n\ncould you tell me whether order 55 can ship before Friday?\n\nThanks,\nDana",
+      "received_at": "2026-10-01T16:00:00.000Z",
+      "expected_json": "{\"task\":\"reply_to_supplier\"}"
+    },
+    {
+      "ID": "msg-1005",
+      "seq": 5,
+      "sender": "orders@northwind-parts.example",
+      "subject": "New order PO-10435",
+      "body": "Hello,\n\nplease find our order below.\n\nOrder number: PO-10435\nOrder date: 2026-10-02\nTotal: 145.20 EUR\n\nKind regards,\nNorthwind Parts, order desk",
+      "received_at": "2026-10-01T19:00:00.000Z",
+      "expected_json": "{\"task\":\"parse_order_email\",\"supplier_id\":\"SUP-NW\",\"order_no\":\"PO-10435\",\"order_date\":\"2026-10-02\",\"total\":145.2,\"currency\":\"EUR\"}"
+    },
+    {
+      "ID": "msg-1006",
+      "seq": 6,
+      "sender": "orders@northwind-parts.example",
+      "subject": "New order PO-10436",
+      "body": "Hello,\n\nplease find our order below.\n\nOrder number: PO-10436\nOrder date: 2026-10-03\nTotal: 99.90 EUR\n\nKind regards,\nNorthwind Parts, order desk",
+      "received_at": "2026-10-01T22:00:00.000Z",
+      "expected_json": "{\"task\":\"parse_order_email\",\"supplier_id\":\"SUP-NW\",\"order_no\":\"PO-10436\",\"order_date\":\"2026-10-03\",\"total\":99.9,\"currency\":\"EUR\"}"
+    },
+    {
+      "ID": "msg-1007",
+      "seq": 7,
+      "sender": "sales@contoso-metal.example",
+      "subject": "Bestellung / order 7781",
+      "body": "Dear customer,\n\nOur ref. PO 7781, dated 03.10.2026, amount EUR 980,00.\nPlease confirm by return.\n\nContoso Metalworks",
+      "received_at": "2026-10-02T01:00:00.000Z",
+      "expected_json": "{\"task\":\"parse_order_email\",\"supplier_id\":\"SUP-CM\",\"order_no\":\"PO-7781\",\"order_date\":\"2026-10-03\",\"total\":980,\"currency\":\"EUR\"}"
+    },
+    {
+      "ID": "msg-1008",
+      "seq": 8,
+      "sender": "orders@northwind-parts.example",
+      "subject": "New order PO-10437",
+      "body": "Hello,\n\nplease find our order below.\n\nOrder number: PO-10437\nOrder date: 2026-10-03\nTotal: 310.00 EUR\n\nKind regards,\nNorthwind Parts, order desk",
+      "received_at": "2026-10-02T04:00:00.000Z",
+      "expected_json": "{\"task\":\"parse_order_email\",\"supplier_id\":\"SUP-NW\",\"order_no\":\"PO-10437\",\"order_date\":\"2026-10-03\",\"total\":310,\"currency\":\"EUR\"}"
+    },
+    {
+      "ID": "msg-1009",
+      "seq": 9,
+      "sender": "orders@northwind-parts.example",
+      "subject": "New order PO-10438",
+      "body": "Hello,\n\nplease find our order below.\n\nOrder number: PO-10438\nOrder date: 2026-10-04\nTotal: 57.40 EUR\n\nKind regards,\nNorthwind Parts, order desk",
+      "received_at": "2026-10-02T07:00:00.000Z",
+      "expected_json": "{\"task\":\"parse_order_email\",\"supplier_id\":\"SUP-NW\",\"order_no\":\"PO-10438\",\"order_date\":\"2026-10-04\",\"total\":57.4,\"currency\":\"EUR\"}"
+    },
+    {
+      "ID": "msg-1010",
+      "seq": 10,
+      "sender": "orders@northwind-parts.example",
+      "subject": "New order PO-10439",
+      "body": "Hello,\n\nplease find our order below.\n\nOrder number: PO-10439\nOrder date: 2026-10-04\nTotal: 640.00 EUR\n\nKind regards,\nNorthwind Parts, order desk",
+      "received_at": "2026-10-02T10:00:00.000Z",
+      "expected_json": "{\"task\":\"parse_order_email\",\"supplier_id\":\"SUP-NW\",\"order_no\":\"PO-10439\",\"order_date\":\"2026-10-04\",\"total\":640,\"currency\":\"EUR\"}"
+    },
+    {
+      "ID": "msg-1011",
+      "seq": 11,
+      "sender": "orders@northwind-parts.example",
+      "subject": "New order PO-10440",
+      "body": "Hello,\n\nplease find our order below.\n\nOrder number: PO-10440\nOrder date: 2026-10-05\nTotal: 120.00 EUR\n\nKind regards,\nNorthwind Parts, order desk",
+      "received_at": "2026-10-02T13:00:00.000Z",
+      "expected_json": "{\"task\":\"parse_order_email\",\"supplier_id\":\"SUP-NW\",\"order_no\":\"PO-10440\",\"order_date\":\"2026-10-05\",\"total\":120,\"currency\":\"EUR\"}"
+    },
+    {
+      "ID": "msg-1012",
+      "seq": 12,
+      "sender": "orders@northwind-parts.example",
+      "subject": "New order PO-10441",
+      "body": "Hello,\n\nplease find our order below.\n\nOrder number: PO-10441\nOrder date: 2026-10-05\nTotal: 75.25 EUR\n\nKind regards,\nNorthwind Parts, order desk",
+      "received_at": "2026-10-02T16:00:00.000Z",
+      "expected_json": "{\"task\":\"parse_order_email\",\"supplier_id\":\"SUP-NW\",\"order_no\":\"PO-10441\",\"order_date\":\"2026-10-05\",\"total\":75.25,\"currency\":\"EUR\"}"
+    },
+    {
+      "ID": "msg-1013",
+      "seq": 13,
+      "sender": "orders@northwind-parts.example",
+      "subject": "Delivery address",
+      "body": "Hello,\n\nquick question about Order number: PO-10498.\nCan you confirm the delivery address for next week?\n\nNorthwind Parts, order desk",
+      "received_at": "2026-10-02T19:00:00.000Z",
+      "expected_json": "{\"task\":\"reply_to_supplier\"}"
+    },
+    {
+      "ID": "msg-1014",
+      "seq": 14,
+      "sender": "orders@northwind-parts.example",
+      "subject": "New order PO-10442",
+      "body": "Hello,\n\nplease find our order below.\n\nOrder number: PO-10442\nOrder date: 2026-10-06\nTotal: 430.10 EUR\n\nKind regards,\nNorthwind Parts, order desk",
+      "received_at": "2026-10-02T22:00:00.000Z",
+      "expected_json": "{\"task\":\"parse_order_email\",\"supplier_id\":\"SUP-NW\",\"order_no\":\"PO-10442\",\"order_date\":\"2026-10-06\",\"total\":430.1,\"currency\":\"EUR\"}"
+    },
+    {
+      "ID": "msg-1015",
+      "seq": 15,
+      "sender": "orders@northwind-parts.example",
+      "subject": "New order PO-10443",
+      "body": "Hello,\n\nplease find our order below.\n\nOrder number: PO-10443\nOrder date: 2026-10-06\nTotal: 205.00 EUR\n\nKind regards,\nNorthwind Parts, order desk",
+      "received_at": "2026-10-03T01:00:00.000Z",
+      "expected_json": "{\"task\":\"parse_order_email\",\"supplier_id\":\"SUP-NW\",\"order_no\":\"PO-10443\",\"order_date\":\"2026-10-06\",\"total\":205,\"currency\":\"EUR\"}"
+    },
+    {
+      "ID": "msg-1016",
+      "seq": 16,
+      "sender": "orders@northwind-parts.example",
+      "subject": "New order PO-10444",
+      "body": "Hello,\n\nplease find our order below.\n\nOrder number: PO-10444\nOrder date: 2026-10-07\nTotal: 1,250.00 EUR\n\nKind regards,\nNorthwind Parts, order desk",
+      "received_at": "2026-10-03T04:00:00.000Z",
+      "expected_json": "{\"task\":\"parse_order_email\",\"supplier_id\":\"SUP-NW\",\"order_no\":\"PO-10444\",\"order_date\":\"2026-10-07\",\"total\":1250,\"currency\":\"EUR\"}"
+    },
+    {
+      "ID": "msg-1017",
+      "seq": 17,
+      "sender": "buyer@fabrikam.example",
+      "subject": "Invoice copy",
+      "body": "Hello,\n\ncan you send me a copy of last month's invoice?\n\nDana",
+      "received_at": "2026-10-03T07:00:00.000Z",
+      "expected_json": "{\"task\":\"reply_to_supplier\"}"
+    },
+    {
+      "ID": "msg-1018",
+      "seq": 18,
+      "sender": "orders@northwind-parts.example",
+      "subject": "New order PO-10445",
+      "body": "Hello,\n\nplease find our order below.\n\nOrder number: PO-10445\nOrder date: 2026-10-07\nTotal: 66.60 EUR\n\nKind regards,\nNorthwind Parts, order desk",
+      "received_at": "2026-10-03T10:00:00.000Z",
+      "expected_json": "{\"task\":\"parse_order_email\",\"supplier_id\":\"SUP-NW\",\"order_no\":\"PO-10445\",\"order_date\":\"2026-10-07\",\"total\":66.6,\"currency\":\"EUR\"}"
+    },
+    {
+      "ID": "msg-1019",
+      "seq": 19,
+      "sender": "orders@northwind-parts.example",
+      "subject": "New order PO-10446",
+      "body": "Hello,\n\nplease find our order below.\n\nOrder number: PO-10446\nOrder date: 2026-10-08\nTotal: 2,480.00 EUR\n\nKind regards,\nNorthwind Parts, order desk",
+      "received_at": "2026-10-03T13:00:00.000Z",
+      "expected_json": "{\"task\":\"parse_order_email\",\"supplier_id\":\"SUP-NW\",\"order_no\":\"PO-10446\",\"order_date\":\"2026-10-08\",\"total\":2480,\"currency\":\"EUR\"}"
+    },
+    {
+      "ID": "msg-1020",
+      "seq": 20,
+      "sender": "orders@northwind-parts.example",
+      "subject": "New order PO-10447",
+      "body": "Hello,\n\nplease find our order below.\n\nOrder number: PO-10447\nOrder date: 2026-10-08\nTotal: 3,105.50 EUR\n\nKind regards,\nNorthwind Parts, order desk",
+      "received_at": "2026-10-03T16:00:00.000Z",
+      "expected_json": "{\"task\":\"parse_order_email\",\"supplier_id\":\"SUP-NW\",\"order_no\":\"PO-10447\",\"order_date\":\"2026-10-08\",\"total\":3105.5,\"currency\":\"EUR\"}"
+    },
+    {
+      "ID": "msg-1021",
+      "seq": 21,
+      "sender": "sales@contoso-metal.example",
+      "subject": "Bestellung / order 7782",
+      "body": "Dear customer,\n\nOur ref. PO 7782, dated 08.10.2026, amount EUR 1.240,50.\nPlease confirm by return.\n\nContoso Metalworks",
+      "received_at": "2026-10-03T19:00:00.000Z",
+      "expected_json": "{\"task\":\"parse_order_email\",\"supplier_id\":\"SUP-CM\",\"order_no\":\"PO-7782\",\"order_date\":\"2026-10-08\",\"total\":1240.5,\"currency\":\"EUR\"}"
+    },
+    {
+      "ID": "msg-1022",
+      "seq": 22,
+      "sender": "orders@northwind-parts.example",
+      "subject": "New order PO-10448",
+      "body": "Hello,\n\nplease find our order below.\n\nOrder number: PO-10448\nOrder date: 2026-10-09\nTotal: 92.00 EUR\n\nKind regards,\nNorthwind Parts, order desk",
+      "received_at": "2026-10-03T22:00:00.000Z",
+      "expected_json": "{\"task\":\"parse_order_email\",\"supplier_id\":\"SUP-NW\",\"order_no\":\"PO-10448\",\"order_date\":\"2026-10-09\",\"total\":92,\"currency\":\"EUR\"}"
+    },
+    {
+      "ID": "msg-1023",
+      "seq": 23,
+      "sender": "orders@northwind-parts.example",
+      "subject": "New order PO-10449",
+      "body": "Hello,\n\nplease find our order below.\n\nOrder number: PO-10449\nOrder date: 2026-10-09\nTotal: 1,999.99 EUR\n\nKind regards,\nNorthwind Parts, order desk",
+      "received_at": "2026-10-04T01:00:00.000Z",
+      "expected_json": "{\"task\":\"parse_order_email\",\"supplier_id\":\"SUP-NW\",\"order_no\":\"PO-10449\",\"order_date\":\"2026-10-09\",\"total\":1999.99,\"currency\":\"EUR\"}"
+    },
+    {
+      "ID": "msg-1024",
+      "seq": 24,
+      "sender": "orders@northwind-parts.example",
+      "subject": "New order PO-10450",
+      "body": "Hello,\n\nplease find our order below.\n\nOrder number: PO-10450\nOrder date: 2026-10-10\nTotal: 512.00 EUR\n\nKind regards,\nNorthwind Parts, order desk",
+      "received_at": "2026-10-04T04:00:00.000Z",
+      "expected_json": "{\"task\":\"parse_order_email\",\"supplier_id\":\"SUP-NW\",\"order_no\":\"PO-10450\",\"order_date\":\"2026-10-10\",\"total\":512,\"currency\":\"EUR\"}"
+    },
+    {
+      "ID": "msg-1025",
+      "seq": 25,
+      "sender": "orders@northwind-parts.example",
+      "subject": "New order PO-10451",
+      "body": "Hello,\n\nplease find our order below.\n\nOrder number: PO-10451\nOrder date: 2026-10-10\nTotal: 4,020.00 EUR\n\nKind regards,\nNorthwind Parts, order desk",
+      "received_at": "2026-10-04T07:00:00.000Z",
+      "expected_json": "{\"task\":\"parse_order_email\",\"supplier_id\":\"SUP-NW\",\"order_no\":\"PO-10451\",\"order_date\":\"2026-10-10\",\"total\":4020,\"currency\":\"EUR\"}"
+    },
+    {
+      "ID": "msg-1026",
+      "seq": 26,
+      "sender": "orders@northwind-parts.example",
+      "subject": "New order PO-10452",
+      "body": "Hello,\n\nplease find our order below.\n\nOrder number: PO-10452\nOrder date: 2026-10-11\nTotal: 1,140.00 EUR\n\nKind regards,\nNorthwind Parts, order desk",
+      "received_at": "2026-10-04T10:00:00.000Z",
+      "expected_json": "{\"task\":\"parse_order_email\",\"supplier_id\":\"SUP-NW\",\"order_no\":\"PO-10452\",\"order_date\":\"2026-10-11\",\"total\":1140,\"currency\":\"EUR\"}"
+    },
+    {
+      "ID": "msg-1027",
+      "seq": 27,
+      "sender": "orders@northwind-parts.example",
+      "subject": "New order PO-10453",
+      "body": "Hello,\n\nplease find our order below.\n\nOrder number: PO-10453\nOrder date: 2026-10-11\nTotal: 230.00 EUR\n\nKind regards,\nNorthwind Parts, order desk",
+      "received_at": "2026-10-04T13:00:00.000Z",
+      "expected_json": "{\"task\":\"parse_order_email\",\"supplier_id\":\"SUP-NW\",\"order_no\":\"PO-10453\",\"order_date\":\"2026-10-11\",\"total\":230,\"currency\":\"EUR\"}"
+    },
+    {
+      "ID": "msg-1028",
+      "seq": 28,
+      "sender": "orders@northwind-parts.example",
+      "subject": "New order PO-10454",
+      "body": "Hello,\n\nplease find our order below.\n\nOrder number: PO-10454\nOrder date: 2026-10-12\nTotal: 1,375.25 EUR\n\nKind regards,\nNorthwind Parts, order desk",
+      "received_at": "2026-10-04T16:00:00.000Z",
+      "expected_json": "{\"task\":\"parse_order_email\",\"supplier_id\":\"SUP-NW\",\"order_no\":\"PO-10454\",\"order_date\":\"2026-10-12\",\"total\":1375.25,\"currency\":\"EUR\"}"
+    },
+    {
+      "ID": "msg-1029",
+      "seq": 29,
+      "sender": "buyer@fabrikam.example",
+      "subject": "Price list",
+      "body": "Hi,\n\nis there an updated price list for Q4?\n\nDana",
+      "received_at": "2026-10-04T19:00:00.000Z",
+      "expected_json": "{\"task\":\"reply_to_supplier\"}"
+    },
+    {
+      "ID": "msg-1030",
+      "seq": 30,
+      "sender": "orders@northwind-parts.example",
+      "subject": "New order PO-10455",
+      "body": "Hello,\n\nplease find our order below.\n\nOrder number: PO-10455\nOrder date: 2026-10-12\nTotal: 84.00 EUR\n\nKind regards,\nNorthwind Parts, order desk",
+      "received_at": "2026-10-04T22:00:00.000Z",
+      "expected_json": "{\"task\":\"parse_order_email\",\"supplier_id\":\"SUP-NW\",\"order_no\":\"PO-10455\",\"order_date\":\"2026-10-12\",\"total\":84,\"currency\":\"EUR\"}"
+    },
+    {
+      "ID": "msg-1031",
+      "seq": 31,
+      "sender": "orders@northwind-parts.example",
+      "subject": "New order PO-10456",
+      "body": "Hello,\n\nplease find our order below.\n\nOrder number: PO-10456\nOrder date: 2026-10-13\nTotal: 2,210.00 EUR\n\nKind regards,\nNorthwind Parts, order desk",
+      "received_at": "2026-10-05T01:00:00.000Z",
+      "expected_json": "{\"task\":\"parse_order_email\",\"supplier_id\":\"SUP-NW\",\"order_no\":\"PO-10456\",\"order_date\":\"2026-10-13\",\"total\":2210,\"currency\":\"EUR\"}"
+    },
+    {
+      "ID": "msg-1032",
+      "seq": 32,
+      "sender": "orders@northwind-parts.example",
+      "subject": "New order PO-10457",
+      "body": "Hello,\n\nplease find our order below.\n\nOrder number: PO-10457\nOrder date: 2026-10-13\nTotal: 305.60 EUR\n\nKind regards,\nNorthwind Parts, order desk",
+      "received_at": "2026-10-05T04:00:00.000Z",
+      "expected_json": "{\"task\":\"parse_order_email\",\"supplier_id\":\"SUP-NW\",\"order_no\":\"PO-10457\",\"order_date\":\"2026-10-13\",\"total\":305.6,\"currency\":\"EUR\"}"
+    },
+    {
+      "ID": "msg-1033",
+      "seq": 33,
+      "sender": "orders@northwind-parts.example",
+      "subject": "New order PO-10458",
+      "body": "Hello,\n\nplease find our order below.\n\nOrder number: PO-10458\nOrder date: 2026-10-14\nTotal: 1,050.00 EUR\n\nKind regards,\nNorthwind Parts, order desk",
+      "received_at": "2026-10-05T07:00:00.000Z",
+      "expected_json": "{\"task\":\"parse_order_email\",\"supplier_id\":\"SUP-NW\",\"order_no\":\"PO-10458\",\"order_date\":\"2026-10-14\",\"total\":1050,\"currency\":\"EUR\"}"
+    },
+    {
+      "ID": "msg-1034",
+      "seq": 34,
+      "sender": "orders@northwind-parts.example",
+      "subject": "New order PO-10459",
+      "body": "Hello,\n\nplease find our order below.\n\nOrder number: PO-10459\nOrder date: 2026-10-14\nTotal: 49.95 EUR\n\nKind regards,\nNorthwind Parts, order desk",
+      "received_at": "2026-10-05T10:00:00.000Z",
+      "expected_json": "{\"task\":\"parse_order_email\",\"supplier_id\":\"SUP-NW\",\"order_no\":\"PO-10459\",\"order_date\":\"2026-10-14\",\"total\":49.95,\"currency\":\"EUR\"}"
+    },
+    {
+      "ID": "msg-1035",
+      "seq": 35,
+      "sender": "orders@northwind-parts.example",
+      "subject": "New order PO-10460",
+      "body": "Hello,\n\nplease find our order below.\n\nOrder number: PO-10460\nOrder date: 2026-10-15\nTotal: 760.00 EUR\n\nKind regards,\nNorthwind Parts, order desk",
+      "received_at": "2026-10-05T13:00:00.000Z",
+      "expected_json": "{\"task\":\"parse_order_email\",\"supplier_id\":\"SUP-NW\",\"order_no\":\"PO-10460\",\"order_date\":\"2026-10-15\",\"total\":760,\"currency\":\"EUR\"}"
+    },
+    {
+      "ID": "msg-1036",
+      "seq": 36,
+      "sender": "orders@northwind-parts.example",
+      "subject": "New order PO-10461",
+      "body": "Hello,\n\nplease find our order below.\n\nOrder number: PO-10461\nOrder date: 2026-10-15\nTotal: 3,300.00 EUR\n\nKind regards,\nNorthwind Parts, order desk",
+      "received_at": "2026-10-05T16:00:00.000Z",
+      "expected_json": "{\"task\":\"parse_order_email\",\"supplier_id\":\"SUP-NW\",\"order_no\":\"PO-10461\",\"order_date\":\"2026-10-15\",\"total\":3300,\"currency\":\"EUR\"}"
+    },
+    {
+      "ID": "msg-1037",
+      "seq": 37,
+      "sender": "sales@contoso-metal.example",
+      "subject": "Bestellung / order 7783",
+      "body": "Dear customer,\n\nOur ref. PO 7783, dated 15.10.2026, amount EUR 615,00.\nPlease confirm by return.\n\nContoso Metalworks",
+      "received_at": "2026-10-05T19:00:00.000Z",
+      "expected_json": "{\"task\":\"parse_order_email\",\"supplier_id\":\"SUP-CM\",\"order_no\":\"PO-7783\",\"order_date\":\"2026-10-15\",\"total\":615,\"currency\":\"EUR\"}"
+    },
+    {
+      "ID": "msg-1038",
+      "seq": 38,
+      "sender": "orders@northwind-parts.example",
+      "subject": "New order PO-10462",
+      "body": "Hello,\n\nplease find our order below.\n\nOrder number: PO-10462\nOrder date: 2026-10-16\nTotal: 128.40 EUR\n\nKind regards,\nNorthwind Parts, order desk",
+      "received_at": "2026-10-05T22:00:00.000Z",
+      "expected_json": "{\"task\":\"parse_order_email\",\"supplier_id\":\"SUP-NW\",\"order_no\":\"PO-10462\",\"order_date\":\"2026-10-16\",\"total\":128.4,\"currency\":\"EUR\"}"
+    },
+    {
+      "ID": "msg-1039",
+      "seq": 39,
+      "sender": "orders@northwind-parts.example",
+      "subject": "New order PO-10463",
+      "body": "Hello,\n\nplease find our order below.\n\nOrder number: PO-10463\nOrder date: 2026-10-16\nTotal: 1,600.00 EUR\n\nKind regards,\nNorthwind Parts, order desk",
+      "received_at": "2026-10-06T01:00:00.000Z",
+      "expected_json": "{\"task\":\"parse_order_email\",\"supplier_id\":\"SUP-NW\",\"order_no\":\"PO-10463\",\"order_date\":\"2026-10-16\",\"total\":1600,\"currency\":\"EUR\"}"
+    },
+    {
+      "ID": "msg-1040",
+      "seq": 40,
+      "sender": "orders@northwind-parts.example",
+      "subject": "New order PO-10464",
+      "body": "Hello,\n\nplease find our order below.\n\nOrder number: PO-10464\nOrder date: 2026-10-17\nTotal: 97.10 EUR\n\nKind regards,\nNorthwind Parts, order desk",
+      "received_at": "2026-10-06T04:00:00.000Z",
+      "expected_json": "{\"task\":\"parse_order_email\",\"supplier_id\":\"SUP-NW\",\"order_no\":\"PO-10464\",\"order_date\":\"2026-10-17\",\"total\":97.1,\"currency\":\"EUR\"}"
+    }
+  ]
+}

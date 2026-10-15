@@ -1,0 +1,13 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:ce="sap.ui.codeeditor">
+	<VBox>
+		<MessageStrip text="{i18n>codeHint}" type="Information" showIcon="true" class="sapUiSmallMarginBottom" />
+		<ce:CodeEditor
+			value="{extractor_source}"
+			type="javascript"
+			editable="false"
+			lineNumbers="true"
+			height="24rem"
+			width="100%"
+		/>
+	</VBox>
+</core:FragmentDefinition>

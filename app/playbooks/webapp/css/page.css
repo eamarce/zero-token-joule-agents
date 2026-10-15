@@ -1,0 +1,6 @@
+html,
+body,
+body > div,
+.sapUiComponentContainer {
+	height: 100%;
+}

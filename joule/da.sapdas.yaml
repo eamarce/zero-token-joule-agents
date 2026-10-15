@@ -1,0 +1,7 @@
+# A test assistant that contains only this capability. Deploy it, try it, then
+# add the capability to your main Joule assistant (docs/deploy-joule.md).
+schema_version: 1.4.0
+name: zt_order_email_agent
+capabilities:
+  - type: local
+    folder: ./zt_capability

@@ -1,0 +1,231 @@
+{
+	"_version": "2.0.0",
+	"sap.app": {
+		"id": "zt.playbooks",
+		"type": "application",
+		"i18n": {
+			"bundleUrl": "i18n/i18n.properties",
+			"supportedLocales": [
+				""
+			],
+			"fallbackLocale": ""
+		},
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"dataSources": {
+			"mainService": {
+				"uri": "/odata/v4/agent/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "4.0"
+				}
+			}
+		},
+		"crossNavigation": {
+			"inbounds": {
+				"playbooks-manage": {
+					"semanticObject": "Playbook",
+					"action": "manage",
+					"signature": {
+						"parameters": {},
+						"additionalParameters": "allowed"
+					}
+				}
+			}
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		}
+	},
+	"sap.ui5": {
+		"flexEnabled": false,
+		"dependencies": {
+			"minUI5Version": "1.136.0",
+			"libs": {
+				"sap.m": {},
+				"sap.f": {},
+				"sap.ui.core": {},
+				"sap.ui.layout": {},
+				"sap.ui.codeeditor": {},
+				"sap.fe.templates": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"resources": {
+			"css": [
+				{
+					"uri": "css/style.css"
+				}
+			]
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "zt.playbooks.i18n.i18n",
+					"supportedLocales": [
+						""
+					],
+					"fallbackLocale": ""
+				}
+			},
+			"": {
+				"dataSource": "mainService",
+				"preload": true,
+				"settings": {
+					"operationMode": "Server",
+					"autoExpandSelect": true,
+					"earlyRequests": true,
+					"groupId": "$auto"
+				}
+			}
+		},
+		"rootView": {
+			"viewName": "sap.fe.templates.RootContainer.view.Fcl",
+			"type": "XML",
+			"id": "appRootView"
+		},
+		"routing": {
+			"config": {
+				"flexibleColumnLayout": {
+					"defaultTwoColumnLayoutType": "TwoColumnsMidExpanded",
+					"defaultThreeColumnLayoutType": "ThreeColumnsMidExpanded"
+				},
+				"routerClass": "sap.f.routing.Router"
+			},
+			"routes": [
+				{
+					"pattern": ":?query:",
+					"name": "PlaybooksList",
+					"target": [
+						"PlaybooksList"
+					]
+				},
+				{
+					"pattern": "Playbooks({key}):?query:",
+					"name": "PlaybooksObjectPage",
+					"target": [
+						"PlaybooksList",
+						"PlaybooksObjectPage"
+					]
+				}
+			],
+			"targets": {
+				"PlaybooksList": {
+					"type": "Component",
+					"id": "PlaybooksList",
+					"name": "sap.fe.templates.ListReport",
+					"options": {
+						"settings": {
+							"contextPath": "/Playbooks",
+							"variantManagement": "None",
+							"initialLoad": "Enabled",
+							"hideFilterBar": true,
+							"views": {
+								"showCounts": true,
+								"paths": [
+									{
+										"key": "all",
+										"annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#all"
+									},
+									{
+										"key": "eligible",
+										"annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#eligible"
+									},
+									{
+										"key": "frozen",
+										"annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#frozen"
+									},
+									{
+										"key": "closed",
+										"annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#closed"
+									}
+								]
+							},
+							"controlConfiguration": {
+								"@com.sap.vocabularies.UI.v1.LineItem": {
+									"tableSettings": {
+										"type": "ResponsiveTable",
+										"selectionMode": "Single"
+									},
+									"actions": {
+										"refresh": {
+											"text": "{i18n>refresh}",
+											"press": "zt.playbooks.ext.ListReportActions.refresh",
+											"requiresSelection": false,
+											"enabled": true,
+											"position": {
+												"placement": "After"
+											}
+										}
+									}
+								}
+							},
+							"navigation": {
+								"Playbooks": {
+									"detail": {
+										"route": "PlaybooksObjectPage"
+									}
+								}
+							}
+						}
+					},
+					"controlAggregation": "beginColumnPages",
+					"contextPattern": ""
+				},
+				"PlaybooksObjectPage": {
+					"type": "Component",
+					"id": "PlaybooksObjectPage",
+					"name": "sap.fe.templates.ObjectPage",
+					"options": {
+						"settings": {
+							"contextPath": "/Playbooks",
+							"editableHeaderContent": false,
+							"content": {
+								"body": {
+									"sections": {
+										"Backtest": {
+											"title": "{i18n>backtestSection}",
+											"type": "XMLFragment",
+											"template": "zt.playbooks.ext.fragment.Backtest",
+											"position": {
+												"placement": "After",
+												"anchor": "Evidence"
+											}
+										},
+										"Code": {
+											"title": "{i18n>codeSection}",
+											"type": "XMLFragment",
+											"template": "zt.playbooks.ext.fragment.Code",
+											"position": {
+												"placement": "After",
+												"anchor": "Backtest"
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"controlAggregation": "midColumnPages",
+					"contextPattern": "/Playbooks({key})"
+				}
+			}
+		}
+	},
+	"sap.fiori": {
+		"registrationIds": [],
+		"archeType": "transactional"
+	}
+}

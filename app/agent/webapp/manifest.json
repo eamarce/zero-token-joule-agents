@@ -1,0 +1,237 @@
+{
+  "_version": "2.0.0",
+  "sap.app": {
+    "id": "zt.agent",
+    "type": "application",
+    "i18n": {
+      "bundleUrl": "i18n/i18n.properties",
+      "supportedLocales": [
+        ""
+      ],
+      "fallbackLocale": ""
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "applicationVersion": {
+      "version": "1.0.0"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/agent/",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": false,
+    "dependencies": {
+      "minUI5Version": "1.136.0",
+      "libs": {
+        "sap.m": {},
+        "sap.f": {},
+        "sap.ui.core": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "zt.agent.i18n.i18n",
+          "supportedLocales": [
+            ""
+          ],
+          "fallbackLocale": ""
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      }
+    },
+    "extends": {
+      "extensions": {
+        "sap.ui.controllerExtensions": {
+          "sap.fe.templates.ListReport.ListReportController": {
+            "controllerName": "zt.agent.ext.controller.ListReportExt"
+          }
+        }
+      }
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router"
+      },
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "RunsList",
+          "target": "RunsList"
+        },
+        {
+          "pattern": "Runs({key}):?query:",
+          "name": "RunsObjectPage",
+          "target": "RunsObjectPage"
+        }
+      ],
+      "targets": {
+        "RunsList": {
+          "type": "Component",
+          "id": "RunsList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/Runs",
+              "navigation": {
+                "Runs": {
+                  "detail": {
+                    "route": "RunsObjectPage"
+                  }
+                }
+              },
+              "hideFilterBar": true,
+              "variantManagement": "None",
+              "initialLoad": "Enabled",
+              "views": {
+                "showCounts": true,
+                "paths": [
+                  {
+                    "key": "all",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#all"
+                  },
+                  {
+                    "key": "type1",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#type1"
+                  },
+                  {
+                    "key": "type2",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#type2"
+                  },
+                  {
+                    "key": "type3",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#type3"
+                  }
+                ]
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable",
+                    "selectionMode": "None",
+                    "enableExport": false,
+                    "condensedTableLayout": true
+                  },
+                  "actions": {
+                    "processNext": {
+                      "text": "{i18n>processNext}",
+                      "press": "zt.agent.ext.ListReportActions.processNext",
+                      "requiresSelection": false,
+                      "enabled": true,
+                      "position": {
+                        "placement": "After"
+                      }
+                    },
+                    "processFive": {
+                      "text": "{i18n>processFive}",
+                      "press": "zt.agent.ext.ListReportActions.processFive",
+                      "requiresSelection": false,
+                      "enabled": true,
+                      "position": {
+                        "placement": "After",
+                        "anchor": "processNext"
+                      }
+                    },
+                    "reset": {
+                      "text": "{i18n>reset}",
+                      "press": "zt.agent.ext.ListReportActions.reset",
+                      "requiresSelection": false,
+                      "enabled": true,
+                      "position": {
+                        "placement": "After",
+                        "anchor": "processFive"
+                      }
+                    },
+                    "refresh": {
+                      "text": "{i18n>refresh}",
+                      "press": "zt.agent.ext.ListReportActions.refresh",
+                      "requiresSelection": false,
+                      "enabled": true,
+                      "position": {
+                        "placement": "After",
+                        "anchor": "reset"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "RunsObjectPage": {
+          "type": "Component",
+          "id": "RunsObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "contextPath": "/Runs",
+              "editableHeaderContent": false,
+              "variantManagement": "None",
+              "controlConfiguration": {
+                "tool_calls/@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable",
+                    "selectionMode": "None",
+                    "enableExport": false,
+                    "condensedTableLayout": true
+                  }
+                },
+                "model_calls_list/@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable",
+                    "selectionMode": "None",
+                    "enableExport": false,
+                    "condensedTableLayout": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "sap.fe.templates.RootContainer.view.NavContainer",
+      "type": "XML",
+      "id": "appRootView"
+    },
+    "services": {
+      "environmentCapabilities": {
+        "factoryName": "sap.fe.core.services.EnvironmentService",
+        "startup": "waitFor",
+        "settings": {
+          "AppState": false
+        }
+      }
+    }
+  }
+}

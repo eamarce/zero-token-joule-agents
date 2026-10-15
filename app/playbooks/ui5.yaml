@@ -1,0 +1,19 @@
+specVersion: "4.0"
+metadata:
+  name: zt.playbooks
+type: application
+framework:
+  name: SAPUI5
+  version: "1.136.20"
+  libraries:
+    - name: sap.ui.core
+    - name: sap.m
+    - name: sap.f
+    - name: sap.ui.layout
+    - name: sap.ui.unified
+    - name: sap.ui.fl
+    - name: sap.ui.mdc
+    - name: sap.ui.codeeditor
+    - name: sap.fe.core
+    - name: sap.fe.templates
+    - name: themelib_sap_fiori_3

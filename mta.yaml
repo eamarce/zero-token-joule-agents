@@ -1,0 +1,87 @@
+_schema-version: "3.2"
+ID: zero-token-joule-agents
+version: 0.2.0
+description: "Zero-token order email agent on Cloud Foundry: CAP + LangGraph.js, callable from SAP Joule over A2A"
+
+# A teaching deployment: one CAP app with SQLite in memory (a restart starts
+# from an empty history and an unread mailbox), an approuter for browser
+# login, XSUAA, and a destination service for Joule. No HANA, no Docker.
+# Model API keys never go in this file: put them in a git-ignored extension
+# (deploy/cf/zt.mtaext, copied from the template) or leave them out to run
+# the simulated model. Runbook: docs/deploy-btp.md.
+parameters:
+  enable-parallel-deployments: true
+
+modules:
+  - name: zt-srv
+    type: nodejs
+    path: .
+    parameters:
+      buildpack: nodejs_buildpack
+      memory: 512M
+      disk-quota: 1024M
+      instances: 1
+      health-check-type: http
+      health-check-http-endpoint: /health
+    build-parameters:
+      builder: custom
+      commands:
+        - npm ci --omit=dev
+      ignore:
+        - ".git/"
+        - "test/"
+        - "out/"
+        - "router/"
+        - "mta_archives/"
+        - "deploy/cf/*.mtaext"
+        - ".env"
+        - "*.sqlite"
+        - "Makefile*.mta"
+        - ".github/"
+    provides:
+      - name: srv-api
+        properties:
+          srv-url: ${default-url}
+    requires:
+      - name: zt-xsuaa
+    properties:
+      NODE_ENV: production
+      ZT_PROFILE: demo
+      # A demo deployment may wipe its own history from the cockpit.
+      ZT_ALLOW_RESET: "true"
+      # Joule calls CAP directly through the destination (client credentials),
+      # so the agent card points A2A clients at this app, not the approuter.
+      ZT_A2A_BASE_URL: ${default-url}
+
+  - name: zt-router
+    type: approuter.nodejs
+    path: router
+    parameters:
+      memory: 256M
+      disk-quota: 512M
+      instances: 1
+    build-parameters:
+      builder: npm
+    requires:
+      - name: zt-xsuaa
+      - name: srv-api
+        group: destinations
+        properties:
+          name: srv-api
+          url: ~{srv-url}
+          forwardAuthToken: true
+
+resources:
+  - name: zt-xsuaa
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: xs-security.json
+
+  # Holds the destination Joule uses to reach the agent (deploy/cf/create-joule-destination.sh).
+  - name: zt-destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-plan: lite

@@ -1,0 +1,89 @@
+{
+	"_version": "2.0.0",
+	"sap.app": {
+		"id": "zt.calculator",
+		"type": "application",
+		"i18n": {
+			"bundleUrl": "i18n/i18n.properties",
+			"supportedLocales": [""],
+			"fallbackLocale": ""
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"dataSources": {
+			"calculatorService": {
+				"uri": "/odata/v4/calculator/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "4.0"
+				}
+			},
+			"agentService": {
+				"uri": "/odata/v4/agent/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "4.0"
+				}
+			}
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		},
+		"supportedThemes": ["sap_fiori_3", "sap_fiori_3_dark"]
+	},
+	"sap.ui5": {
+		"rootView": {
+			"viewName": "zt.calculator.view.Calculator",
+			"type": "XML",
+			"id": "calculator"
+		},
+		"dependencies": {
+			"minUI5Version": "1.136.0",
+			"libs": {
+				"sap.ui.core": {},
+				"sap.m": {},
+				"sap.f": {},
+				"sap.ui.layout": {},
+				"sap.ui.unified": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "zt.calculator.i18n.i18n",
+					"supportedLocales": [""],
+					"fallbackLocale": ""
+				}
+			},
+			"calculator": {
+				"dataSource": "calculatorService",
+				"settings": {
+					"operationMode": "Server",
+					"autoExpandSelect": true,
+					"earlyRequests": false
+				}
+			},
+			"agent": {
+				"dataSource": "agentService",
+				"settings": {
+					"operationMode": "Server",
+					"autoExpandSelect": true,
+					"earlyRequests": false
+				}
+			}
+		}
+	}
+}

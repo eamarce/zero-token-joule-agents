@@ -1,0 +1,11 @@
+/* The page fills the window; Fiori elements pages scroll inside their own DynamicPage. */
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+[data-sap-ui-component],
+[data-sap-ui-area][data-name] {
+  height: 100%;
+}

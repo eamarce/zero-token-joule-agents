@@ -1,0 +1,30 @@
+{
+  "xsappname": "zero-token-agent",
+  "tenant-mode": "dedicated",
+  "description": "Zero-token order email agent: who may run it and who may sign playbooks",
+  "scopes": [
+    { "name": "$XSAPPNAME.AgentCaller", "description": "Run the agent (people in the cockpit, Joule through a destination)" },
+    { "name": "$XSAPPNAME.Approver", "description": "Sign or reject playbooks (gate 2)" }
+  ],
+  "authorities": ["$XSAPPNAME.AgentCaller"],
+  "role-templates": [
+    { "name": "AgentCaller", "description": "Run the agent", "scope-references": ["$XSAPPNAME.AgentCaller"] },
+    { "name": "Approver", "description": "Sign or reject playbooks", "scope-references": ["$XSAPPNAME.Approver"] }
+  ],
+  "role-collections": [
+    {
+      "name": "Zero-token Agent Operator",
+      "description": "Run the agent and read its history",
+      "role-template-references": ["$XSAPPNAME.AgentCaller"]
+    },
+    {
+      "name": "Zero-token Agent Approver",
+      "description": "Run the agent and sign playbooks",
+      "role-template-references": ["$XSAPPNAME.AgentCaller", "$XSAPPNAME.Approver"]
+    }
+  ],
+  "oauth2-configuration": {
+    "token-validity": 900,
+    "redirect-uris": ["https://*.hana.ondemand.com/**"]
+  }
+}

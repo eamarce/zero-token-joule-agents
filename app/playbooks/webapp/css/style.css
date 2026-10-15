@@ -1,0 +1,5 @@
+.ztPlaybooksMono {
+	font-family: var(--sapFontFamily, monospace);
+	font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+	white-space: pre-wrap;
+}

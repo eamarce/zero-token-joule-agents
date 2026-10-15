@@ -1,0 +1,245 @@
+<mvc:View
+  controllerName="zt.joule.controller.Main"
+  xmlns="sap.m"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns:core="sap.ui.core"
+  xmlns:f="sap.f.semantic"
+  xmlns:form="sap.ui.layout.form"
+  height="100%">
+  <f:SemanticPage id="page" showFooter="true" headerPinnable="false" toggleHeaderOnTitleClick="true">
+    <f:titleHeading>
+      <Title text="{i18n>pageTitle}" />
+    </f:titleHeading>
+    <f:titleCustomTextActions>
+      <Button id="reloadButton" text="{i18n>reloadCard}" enabled="{= !${app>/cardBusy} }" press=".onReloadCard" />
+    </f:titleCustomTextActions>
+
+    <f:headerContent>
+      <FlexBox wrap="Wrap" class="sapUiResponsiveContentPadding" visible="{= !!${card>/name} }">
+        <VBox class="sapUiMediumMarginEnd sapUiTinyMarginBottom">
+          <Label text="{i18n>headerAgent}" />
+          <ObjectStatus text="{card>/name}" />
+        </VBox>
+        <VBox class="sapUiMediumMarginEnd sapUiTinyMarginBottom">
+          <Label text="{i18n>headerProtocol}" />
+          <ObjectStatus text="A2A {card>/protocolVersion}" />
+        </VBox>
+        <VBox class="sapUiMediumMarginEnd sapUiTinyMarginBottom">
+          <Label text="{i18n>headerTransport}" />
+          <ObjectStatus text="{card>/transport}" />
+        </VBox>
+        <VBox class="sapUiTinyMarginBottom">
+          <Label text="{i18n>headerEndpoint}" />
+          <ObjectStatus text="{card>/url}" />
+        </VBox>
+      </FlexBox>
+    </f:headerContent>
+
+    <f:content>
+      <VBox class="sapUiResponsiveContentPadding">
+        <MessageStrip text="{i18n>introMessage}" type="Information" showIcon="true" class="sapUiSmallMarginBottom" />
+
+        <!-- Request -->
+        <Panel id="requestPanel" headerText="{i18n>requestPanel}" expandable="true" expanded="true" class="sapUiSmallMarginBottom">
+          <VBox>
+            <Label text="{i18n>requestLabel}" labelFor="requestInput" />
+            <Input
+              id="requestInput"
+              value="{app>/request/text}"
+              placeholder="{i18n>requestPlaceholder}"
+              width="100%"
+              submit=".onSend" />
+            <Text text="{i18n>requestHint}" class="sapUiTinyMarginTop" />
+            <HBox wrap="Wrap" alignItems="Center" class="sapUiSmallMarginTop" visible="{= ${card>/examples}.length > 0 }">
+              <Label text="{i18n>requestExamples}" class="sapUiSmallMarginEnd" />
+              <HBox wrap="Wrap" items="{card>/examples}">
+                <Link text="{card>text}" press=".onExample" class="sapUiSmallMarginEnd" />
+              </HBox>
+            </HBox>
+          </VBox>
+        </Panel>
+
+        <!-- Response -->
+        <Panel id="responsePanel" headerText="{i18n>responsePanel}" expandable="true" expanded="true" busy="{app>/sending}" class="sapUiSmallMarginBottom">
+          <VBox>
+            <MessageStrip text="{app>/error}" type="Error" showIcon="true" visible="{= !!${app>/error} }" class="sapUiSmallMarginBottom" />
+            <Text text="{i18n>responseNone}" visible="{= !${app>/hasResponse} }" />
+            <VBox visible="{app>/hasResponse}">
+              <form:Form editable="false" visible="{= !!${app>/response/taskId} }">
+                <form:layout>
+                  <form:ColumnLayout columnsM="2" columnsL="3" columnsXL="4" />
+                </form:layout>
+                <form:formContainers>
+                  <form:FormContainer title="{i18n>responseTask}">
+                    <form:formElements>
+                      <form:FormElement label="{i18n>taskState}">
+                        <form:fields>
+                          <ObjectStatus text="{app>/response/stateText}" state="{app>/response/stateType}" />
+                        </form:fields>
+                      </form:FormElement>
+                      <form:FormElement label="{i18n>taskId}">
+                        <form:fields>
+                          <Text text="{app>/response/taskId}" />
+                        </form:fields>
+                      </form:FormElement>
+                      <form:FormElement label="{i18n>taskContext}">
+                        <form:fields>
+                          <Text text="{app>/response/contextId}" />
+                        </form:fields>
+                      </form:FormElement>
+                      <form:FormElement label="{i18n>taskTime}">
+                        <form:fields>
+                          <Text text="{app>/response/time}" />
+                        </form:fields>
+                      </form:FormElement>
+                    </form:formElements>
+                  </form:FormContainer>
+                  <form:FormContainer title="{i18n>responseAnswer}">
+                    <form:formElements>
+                      <form:FormElement>
+                        <form:fields>
+                          <Text text="{app>/response/answer}" renderWhitespace="true" />
+                        </form:fields>
+                      </form:FormElement>
+                    </form:formElements>
+                  </form:FormContainer>
+                  <form:FormContainer title="{i18n>responseRun}" formElements="{app>/response/dataRows}">
+                    <form:FormElement label="{app>label}">
+                      <form:fields>
+                        <Text text="{app>text}" renderWhitespace="true" />
+                      </form:fields>
+                    </form:FormElement>
+                  </form:FormContainer>
+                </form:formContainers>
+              </form:Form>
+
+              <form:Form editable="false" class="sapUiSmallMarginTop">
+                <form:layout>
+                  <form:ColumnLayout columnsM="1" columnsL="2" columnsXL="2" labelCellsLarge="12" emptyCellsLarge="0" />
+                </form:layout>
+                <form:formContainers>
+                  <form:FormContainer title="{i18n>responseRawRequest}">
+                    <form:formElements>
+                      <form:FormElement>
+                        <form:fields>
+                          <TextArea value="{app>/response/rawRequest}" editable="false" rows="14" width="100%" wrapping="Off" class="ztMono" />
+                        </form:fields>
+                      </form:FormElement>
+                    </form:formElements>
+                  </form:FormContainer>
+                  <form:FormContainer title="{i18n>responseRawResponse}">
+                    <form:formElements>
+                      <form:FormElement>
+                        <form:fields>
+                          <TextArea value="{app>/response/rawResponse}" editable="false" rows="14" width="100%" wrapping="Off" class="ztMono" />
+                        </form:fields>
+                      </form:FormElement>
+                    </form:formElements>
+                  </form:FormContainer>
+                </form:formContainers>
+              </form:Form>
+            </VBox>
+          </VBox>
+        </Panel>
+
+        <!-- Agent card -->
+        <Panel id="cardPanel" headerText="{i18n>cardPanel}" expandable="true" expanded="true" busy="{app>/cardBusy}" class="sapUiSmallMarginBottom">
+          <VBox>
+            <MessageStrip text="{app>/cardError}" type="Error" showIcon="true" visible="{= !!${app>/cardError} }" class="sapUiSmallMarginBottom" />
+            <form:Form editable="false">
+              <form:layout>
+                <form:ColumnLayout columnsM="2" columnsL="3" columnsXL="4" />
+              </form:layout>
+              <form:formContainers>
+                <form:FormContainer title="{i18n>cardGeneral}">
+                  <form:formElements>
+                    <form:FormElement label="{i18n>cardName}">
+                      <form:fields><Text text="{card>/name}" /></form:fields>
+                    </form:FormElement>
+                    <form:FormElement label="{i18n>cardDescription}">
+                      <form:fields><Text text="{card>/description}" /></form:fields>
+                    </form:FormElement>
+                    <form:FormElement label="{i18n>cardVersion}">
+                      <form:fields><Text text="{card>/version}" /></form:fields>
+                    </form:FormElement>
+                  </form:formElements>
+                </form:FormContainer>
+                <form:FormContainer title="{i18n>cardEndpoint}">
+                  <form:formElements>
+                    <form:FormElement label="{i18n>cardUrl}">
+                      <form:fields><Text text="{card>/url}" /></form:fields>
+                    </form:FormElement>
+                    <form:FormElement label="{i18n>cardProtocolVersion}">
+                      <form:fields><Text text="{card>/protocolVersion}" /></form:fields>
+                    </form:FormElement>
+                    <form:FormElement label="{i18n>cardTransport}">
+                      <form:fields><Text text="{card>/transport}" /></form:fields>
+                    </form:FormElement>
+                  </form:formElements>
+                </form:FormContainer>
+                <form:FormContainer title="{i18n>cardCapabilities}">
+                  <form:formElements>
+                    <form:FormElement label="{i18n>cardStreaming}">
+                      <form:fields><Text text="{card>/streaming}" /></form:fields>
+                    </form:FormElement>
+                    <form:FormElement label="{i18n>cardPush}">
+                      <form:fields><Text text="{card>/push}" /></form:fields>
+                    </form:FormElement>
+                    <form:FormElement label="{i18n>cardInputModes}">
+                      <form:fields><Text text="{card>/inputModes}" /></form:fields>
+                    </form:FormElement>
+                    <form:FormElement label="{i18n>cardOutputModes}">
+                      <form:fields><Text text="{card>/outputModes}" /></form:fields>
+                    </form:FormElement>
+                  </form:formElements>
+                </form:FormContainer>
+                <form:FormContainer title="{i18n>cardSecurity}">
+                  <form:formElements>
+                    <form:FormElement label="{i18n>cardScheme}">
+                      <form:fields><Text text="{card>/scheme}" /></form:fields>
+                    </form:FormElement>
+                    <form:FormElement label="{i18n>cardSchemeType}">
+                      <form:fields><Text text="{card>/schemeType}" /></form:fields>
+                    </form:FormElement>
+                    <form:FormElement label="{i18n>cardSchemeDescription}">
+                      <form:fields><Text text="{card>/schemeDescription}" /></form:fields>
+                    </form:FormElement>
+                    <form:FormElement label="{i18n>cardScopes}">
+                      <form:fields><Text text="{card>/scopes}" /></form:fields>
+                    </form:FormElement>
+                  </form:formElements>
+                </form:FormContainer>
+              </form:formContainers>
+            </form:Form>
+
+            <Title text="{i18n>skillsTitle}" level="H5" class="sapUiSmallMarginTop" />
+            <List id="skillsList" items="{card>/skills}" noDataText="{i18n>skillsNone}" class="sapUiTinyMarginTop">
+              <ObjectListItem title="{card>name}">
+                <attributes>
+                  <ObjectAttribute title="{i18n>skillId}" text="{card>id}" />
+                  <ObjectAttribute title="{i18n>cardDescription}" text="{card>description}" />
+                  <ObjectAttribute title="{i18n>skillTags}" text="{card>tags}" />
+                  <ObjectAttribute title="{i18n>skillExamples}" text="{card>examples}" />
+                </attributes>
+              </ObjectListItem>
+            </List>
+          </VBox>
+        </Panel>
+
+        <!-- Raw card -->
+        <Panel id="rawCardPanel" headerText="{i18n>rawCardPanel}" expandable="true" expanded="false">
+          <TextArea value="{card>/raw}" editable="false" rows="18" width="100%" wrapping="Off" class="ztMono" />
+        </Panel>
+      </VBox>
+    </f:content>
+
+    <f:footerMainAction>
+      <f:FooterMainAction
+        id="sendButton"
+        text="{i18n>send}"
+        tooltip="{i18n>sendTooltip}"
+        enabled="{= !${app>/sending} }"
+        press=".onSend" />
+    </f:footerMainAction>
+  </f:SemanticPage>
+</mvc:View>

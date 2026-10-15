@@ -1,0 +1,14 @@
+{
+  "name": "zero-token-agent-router",
+  "private": true,
+  "description": "Browser login (XSUAA) in front of the CAP app",
+  "scripts": {
+    "start": "node node_modules/@sap/approuter/approuter.js"
+  },
+  "dependencies": {
+    "@sap/approuter": "^23.3.0"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
