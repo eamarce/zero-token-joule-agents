@@ -1,7 +1,5 @@
 # zero-token-joule-agents
 
-![tests](https://github.com/eamarce/zero-token-joule-agents/actions/workflows/test.yml/badge.svg)
-
 > **“If an agent already solved it a hundred times, why is run 101 still reasoning?”**
 
 An agent that stops calling the model for the cases it has already learned, and measures how much of its traffic still needs one.
